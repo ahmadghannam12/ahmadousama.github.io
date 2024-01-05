@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order</title>
+    <link rel="stylesheet" href="Order.css">
+</head>
+
+<body>
+    <div class="order-container">
+        <form class="order-form" action="process_order.php" method="post" id="orderForm">
+            <label for="product">Choose Product:</label>
+            <select id="product" name="product" class="order-input">
+                <option value="Samsung 23">Samsung 23</option>
+                <option value="Samsung 22">Samsung 22</option>
+                <option value="Samsung 23 Ultra">Samsung 23 Ultra</option>
+                <option value="Samsung 22 Ultra">Samsung 22 Ultra</option>
+                <option value="Samsung 21">Samsung 21</option>
+                <option value="Samsung A53">Samsung A53</option>
+                <option value="Samsung Earbuds">Samsung Earbuds</option>
+                <option value="Samsung Earbuds pro">Samsung Earbuds pro</option>
+                <option value="Samsung smart watch">Samsung smart watch</option>
+                <option value="Samsung smart watch series 2">Samsung smart watch series 2</option>
+                <option value="Samsung NEO QLED 8K">Samsung NEO QLED 8K</option>
+            </select>
+
+            <label for="color">Choose Color:</label>
+            <select id="color" name="color" class="order-input">
+                <option value="red">Red</option>
+                <option value="green">Gold</option>
+                <option value="blue">Blue</option>
+                <option value="white">White</option>
+                <option value="purple">Purple</option>
+                <option value="oil-green">Oil Green</option>
+            </select>
+
+            <label for="type">Choose Type:</label>
+            <select id="type" name="type" class="order-input">
+                <option value="US">US</option>
+                <option value="UK">UK</option>
+                <option value="UAE">UAE</option>
+                <option value="Japan">Japan</option>
+            </select>
+
+            <input type="submit" name="orderBTN" value="Order Now" class="order-button">
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#orderForm").submit(function (e) {
+                e.preventDefault(); 
+
+                var product = $("#product").val();
+                var color = $("#color").val();
+                var type = $("#type").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "process_order.php",
+                    data: {
+                        product: product,
+                        color: color,
+                        type: type
+                    },
+                    success: function (data) {
+                        alert("Order has successfully been saved in the database.");
+                        window.location.href = "samsung.html";
+                    },
+                    error: function (data) {
+                        console.log("Error:", data);
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+
+
+</html>
